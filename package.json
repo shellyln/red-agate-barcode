@@ -1,7 +1,7 @@
 {
   "name": "red-agate-barcode",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "HTML|XML|SVG template engine using JSX, suitable for report output.",
   "keywords": [],
   "main": "./bin/index.js",
@@ -13,14 +13,14 @@
     "node": "9.x"
   },
   "dependencies": {
-    "red-agate-util": "^0.0.4",
-    "red-agate-svg-canvas": "^0.0.2",
+    "red-agate": "^0.0.4",
     "red-agate-math": "^0.0.2",
-    "red-agate": "^0.0.3"
+    "red-agate-svg-canvas": "^0.0.4",
+    "red-agate-util": "^0.0.4"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.2",
-    "@types/node": "^8.0.53",
+    "@types/node": "^8.0.57",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
