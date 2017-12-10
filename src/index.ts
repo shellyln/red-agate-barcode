@@ -9,3 +9,5 @@ export * from './barcode/Code39';
 export * from './barcode/Code128';
 export * from './barcode/Itf';
 export * from './barcode/Nw7';
+
+export * from './barcode/Qr';
