@@ -1,7 +1,7 @@
 {
   "name": "red-agate-barcode",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "HTML|XML|SVG template engine using JSX, suitable for report output.",
   "keywords": [],
   "main": "./bin/index.js",

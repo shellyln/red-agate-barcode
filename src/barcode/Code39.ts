@@ -46,7 +46,7 @@ export const code39PropsDefault: Code39PropsNoUndefined = Object.assign({}, barc
     charGapWidth: void 0
 });
 
-export class Code39 extends BarcodeBase<Code39PropsNoUndefined, BarcodeBaseProps> {
+export class Code39 extends BarcodeBase<Code39PropsNoUndefined, Code39Props> {
     public constructor(props: Code39Props) {
         super(Object.assign({}, code39PropsDefault, props), charactersMap);
     }

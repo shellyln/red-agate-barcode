@@ -84,6 +84,8 @@ export class Qr extends Shape<QrPropsNoUndefined> {
         const encoded = this.encodeData(data);
         const bitmap  = this.buildBitmap(encoded.data, encoded.version);
         this.drawBitmap(canvas, bitmap);
+
+        return ``;
     }
 
 
