@@ -39,7 +39,7 @@ export const code128PropsDefault: Code128PropsNoUndefined = Object.assign({}, ba
     raw: false
 });
 
-export class Code128 extends BarcodeBase<Code128PropsNoUndefined, Code128Props> {
+export class Code128 extends BarcodeBase<Code128Props> {
     public constructor(props: Code128Props) {
         super(Object.assign({}, code128PropsDefault, props), charactersMap);
     }
@@ -47,14 +47,15 @@ export class Code128 extends BarcodeBase<Code128PropsNoUndefined, Code128Props> 
     protected calcSymbolSize(
         data: string, startChar: string, stopChar: string, cdChar: string
         ): {tw: number, th: number} {
+        const props = this.props as Code128PropsNoUndefined;
 
         // module width (bar + space + gap)
-        const mw = this.props.elementWidth * 11;
+        const mw = props.elementWidth * 11;
         return {
             // total width (quiet + data + start + stop + cd)
-            tw: this.props.quietWidth  * 2 + mw * data.length + this.props.elementWidth * 13,
+            tw: props.quietWidth  * 2 + mw * data.length + props.elementWidth * 13,
             // total height (quiet + bar + text)
-            th: this.props.quietHeight * 2 + this.props.height + (this.props.drawText ? this.props.textHeight : 0)
+            th: props.quietHeight * 2 + props.height + (props.drawText ? props.textHeight : 0)
         };
     }
 
@@ -262,7 +263,9 @@ export class Code128 extends BarcodeBase<Code128PropsNoUndefined, Code128Props> 
     }
 
     protected getBarSpaceWidth(): number[] {
-        const w = this.props.elementWidth;
+        const props = this.props as Code128PropsNoUndefined;
+
+        const w = props.elementWidth;
         return [0, w, w * 2, w * 3, w * 4];
     }
 }

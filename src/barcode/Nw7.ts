@@ -49,7 +49,7 @@ export const nw7PropsDefault: Nw7PropsNoUndefined = Object.assign({}, barcodeBas
     stopChar: ""
 });
 
-export class Nw7 extends BarcodeBase<Nw7PropsNoUndefined, Nw7Props> {
+export class Nw7 extends BarcodeBase<Nw7Props> {
     public constructor(props: Nw7Props) {
         super(Object.assign({}, nw7PropsDefault, props), charactersMap);
     }
@@ -57,12 +57,13 @@ export class Nw7 extends BarcodeBase<Nw7PropsNoUndefined, Nw7Props> {
     protected calcSymbolSize(
         data: string, startChar: string, stopChar: string, cdChar: string
         ): {tw: number, th: number} {
+        const props = this.props as Nw7PropsNoUndefined;
 
-        const gw = this.props.charGapWidth || this.props.narrowWidth;
+        const gw = props.charGapWidth || props.narrowWidth;
         // module width (bar + space + gap)
-        const mw = this.props.narrowWidth * 4 + this.props.wideWidth * 3 + gw;
+        const mw = props.narrowWidth * 4 + props.wideWidth * 3 + gw;
 
-        let tw = this.props.quietWidth * 2 - gw;
+        let tw = props.quietWidth * 2 - gw;
 
         const data2 = `${startChar}${data}${cdChar}${stopChar}`;
         for (const c of data2) {
@@ -72,14 +73,14 @@ export class Nw7 extends BarcodeBase<Nw7PropsNoUndefined, Nw7Props> {
             }
             const wide = z.width - 7;
             const narrow = 7 - wide;
-            tw += this.props.narrowWidth * narrow + this.props.wideWidth * wide + gw;
+            tw += props.narrowWidth * narrow + props.wideWidth * wide + gw;
         }
 
         return {
             // total width (quiet + data + start + stop + cd)
             tw,
             // total height (quiet + bar + text)
-            th: this.props.quietHeight * 2 + this.props.height + (this.props.drawText ? this.props.textHeight : 0)
+            th: props.quietHeight * 2 + props.height + (props.drawText ? props.textHeight : 0)
         };
     }
 
@@ -110,8 +111,10 @@ export class Nw7 extends BarcodeBase<Nw7PropsNoUndefined, Nw7Props> {
     }
 
     protected getBarSpaceWidth(): number[] {
-        const gw = this.props.charGapWidth || this.props.narrowWidth;
-        return [gw, this.props.narrowWidth, this.props.wideWidth];
+        const props = this.props as Nw7PropsNoUndefined;
+
+        const gw = props.charGapWidth || props.narrowWidth;
+        return [gw, props.narrowWidth, props.wideWidth];
     }
 }
 

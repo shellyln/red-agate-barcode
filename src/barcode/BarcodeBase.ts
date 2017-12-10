@@ -62,8 +62,8 @@ export const barcodeBasePropsDefault: BarcodeBasePropsNoUndefined = Object.assig
     textHeight: 3.55
 });
 
-export class BarcodeBase<T extends BarcodeBasePropsNoUndefined, P extends BarcodeBaseProps> extends Shape<T> {
-    public constructor(props: P, protected charactersMap: Map<string, {index: number, pattern: string}>) {
+export class BarcodeBase<T extends BarcodeBaseProps> extends Shape<T> {
+    public constructor(props: T, protected charactersMap: Map<string, {index: number, pattern: string}>) {
         super(Object.assign({}, barcodeBasePropsDefault, props as any));
     }
 
@@ -172,11 +172,15 @@ export class BarcodeBase<T extends BarcodeBasePropsNoUndefined, P extends Barcod
     }
 
     protected getBarSpaceHeight(): Array<Array<{offset: number, height: number}>> {
-        return [[{offset: 0, height: this.props.height}]];
+        const props = this.props as BarcodeBasePropsNoUndefined;
+
+        return [[{offset: 0, height: props.height}]];
     }
 
     protected getRenderStartCoodinate(data: string, text: string): {rx: number, ry: number} {
-        return {rx: this.props.quietWidth, ry: this.props.quietHeight};
+        const props = this.props as BarcodeBasePropsNoUndefined;
+
+        return {rx: props.quietWidth, ry: props.quietHeight};
     }
 
     protected get isHeightModulated(): boolean {
@@ -272,9 +276,11 @@ export class BarcodeBase<T extends BarcodeBasePropsNoUndefined, P extends Barcod
     }
 
     protected renderText(canvas: SvgCanvas, tw: number, th: number, data: string, text: string) {
+        const props = this.props as BarcodeBasePropsNoUndefined;
+
         canvas.textAlign = "center";
         canvas.textBaseline = "alphabetic";
-        canvas.fillText(this.props.useRawDataAsText ? data : text, tw / 2, th - this.props.quietHeight);
+        canvas.fillText(props.useRawDataAsText ? data : text, tw / 2, th - props.quietHeight);
     }
 }
 

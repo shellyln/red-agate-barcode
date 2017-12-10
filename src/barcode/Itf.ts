@@ -38,7 +38,7 @@ export const itfPropsDefault: ItfPropsNoUndefined = Object.assign({}, barcodeBas
     wideWidth: 0.66
 });
 
-export class Itf extends BarcodeBase<ItfPropsNoUndefined, ItfProps> {
+export class Itf extends BarcodeBase<ItfProps> {
     public constructor(props: ItfProps) {
         super(Object.assign({}, itfPropsDefault, props), charactersMap);
     }
@@ -46,14 +46,15 @@ export class Itf extends BarcodeBase<ItfPropsNoUndefined, ItfProps> {
     protected calcSymbolSize(
         data: string, startChar: string, stopChar: string, cdChar: string
         ): {tw: number, th: number} {
+        const props = this.props as ItfPropsNoUndefined;
 
         // module width (bar + space + gap)
-        const mw = this.props.narrowWidth * 3 + this.props.wideWidth * 2;
+        const mw = props.narrowWidth * 3 + props.wideWidth * 2;
         return {
             // total width (quiet + data + start + stop + cd)
-            tw: this.props.quietWidth  * 2 + (this.props.narrowWidth * 8) + mw * data.length * 2,
+            tw: props.quietWidth  * 2 + (props.narrowWidth * 8) + mw * data.length * 2,
             // total height (quiet + bar + text)
-            th: this.props.quietHeight * 2 + this.props.height + (this.props.drawText ? this.props.textHeight : 0)
+            th: props.quietHeight * 2 + props.height + (props.drawText ? props.textHeight : 0)
         };
     }
 
@@ -90,7 +91,9 @@ export class Itf extends BarcodeBase<ItfPropsNoUndefined, ItfProps> {
     }
 
     protected getBarSpaceWidth(): number[] {
-        return [0, this.props.narrowWidth, this.props.wideWidth];
+        const props = this.props as ItfPropsNoUndefined;
+
+        return [0, props.narrowWidth, props.wideWidth];
     }
 }
 

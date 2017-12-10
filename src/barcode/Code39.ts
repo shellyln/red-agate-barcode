@@ -46,7 +46,7 @@ export const code39PropsDefault: Code39PropsNoUndefined = Object.assign({}, barc
     charGapWidth: void 0
 });
 
-export class Code39 extends BarcodeBase<Code39PropsNoUndefined, Code39Props> {
+export class Code39 extends BarcodeBase<Code39Props> {
     public constructor(props: Code39Props) {
         super(Object.assign({}, code39PropsDefault, props), charactersMap);
     }
@@ -54,15 +54,16 @@ export class Code39 extends BarcodeBase<Code39PropsNoUndefined, Code39Props> {
     protected calcSymbolSize(
         data: string, startChar: string, stopChar: string, cdChar: string
         ): {tw: number, th: number} {
+        const props = this.props as Code39PropsNoUndefined;
 
-        const gw = this.props.charGapWidth || this.props.narrowWidth;
+        const gw = props.charGapWidth || props.narrowWidth;
         // module width (bar + space + gap)
-        const mw = this.props.narrowWidth * 6 + this.props.wideWidth * 3 + gw;
+        const mw = props.narrowWidth * 6 + props.wideWidth * 3 + gw;
         return {
             // total width (quiet + data + start + stop + cd)
-            tw: this.props.quietWidth  * 2 + mw * (data.length + 2 + (this.props.addCheckDigit ? 1 : 0)) - gw,
+            tw: props.quietWidth  * 2 + mw * (data.length + 2 + (props.addCheckDigit ? 1 : 0)) - gw,
             // total height (quiet + bar + text)
-            th: this.props.quietHeight * 2 + this.props.height + (this.props.drawText ? this.props.textHeight : 0)
+            th: props.quietHeight * 2 + props.height + (props.drawText ? props.textHeight : 0)
         };
     }
 
@@ -104,8 +105,10 @@ export class Code39 extends BarcodeBase<Code39PropsNoUndefined, Code39Props> {
     }
 
     protected getBarSpaceWidth(): number[] {
-        const gw = this.props.charGapWidth || this.props.narrowWidth;
-        return [gw, this.props.narrowWidth, this.props.wideWidth];
+        const props = this.props as Code39PropsNoUndefined;
+
+        const gw = props.charGapWidth || props.narrowWidth;
+        return [gw, props.narrowWidth, props.wideWidth];
     }
 }
 

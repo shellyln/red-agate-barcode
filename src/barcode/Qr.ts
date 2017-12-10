@@ -71,7 +71,7 @@ const masks = [
 
 
 
-export class Qr extends Shape<QrPropsNoUndefined> {
+export class Qr extends Shape<QrProps> {
     public constructor(props: QrProps) {
         super(Object.assign({}, qrPropsDefault, props));
     }
@@ -481,7 +481,8 @@ export class Qr extends Shape<QrPropsNoUndefined> {
             }
         }
 
-        return { data: codewords, version, ecLevel: this.props.ecLevel };
+        const props = this.props as QrPropsNoUndefined;
+        return { data: codewords, version, ecLevel: props.ecLevel };
     }
 
     protected applyMask(bitmap: Bitmap, funcPatternsMap: Bitmap, fn: (x: number, y: number) => boolean) {
@@ -713,9 +714,10 @@ export class Qr extends Shape<QrPropsNoUndefined> {
 
         // place format info
         {
-            const ecLevel = ecLevelMap.get(this.props.ecLevel);
+            const props = this.props as QrPropsNoUndefined;
+            const ecLevel = ecLevelMap.get(props.ecLevel);
             if (ecLevel === void 0) {
-                throw new Error(`Qr#buildBitmap: bad ecLevel '${this.props.ecLevel}' is specified.`);
+                throw new Error(`Qr#buildBitmap: bad ecLevel '${props.ecLevel}' is specified.`);
             }
             let fi = (ecLevel << 3) | masks[maskNo].index;
 
