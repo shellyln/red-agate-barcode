@@ -1,4 +1,5 @@
 # RedAgate's barcode tag library
+#### QR Code, Code39, Code128, EAN (13/8/5/2) / UPC (A/E), ITF, NW7 (Codabar), etc...
 
 
 [![npm](https://img.shields.io/npm/v/red-agate-barcode.svg)](https://www.npmjs.com/package/red-agate-barcode)
@@ -19,7 +20,7 @@ $ npm install red-agate-barcode --save
 ```
 
 
-## Licenses
+## License
 [ISC](https://github.com/shellyln/red-agate-barcode/blob/master/LICENSE.md)  
 Copyright (c) 2017, Shellyl_N and Authors.
 
