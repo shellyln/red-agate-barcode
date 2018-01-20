@@ -216,7 +216,7 @@ export class BarcodeBase<T extends BarcodeBaseProps> extends Shape<T> {
                             if (bar) {
                                 const ss = (heightData === void 0) ? vseg[0] : vseg[Number.parseInt(heightData[i])];
                                 for (const seg of ss) {
-                                    canvas.fillRect(rx + dx, ry + seg.offset, w, seg.height);
+                                    canvas.rect(rx + dx, ry + seg.offset, w, seg.height);
                                 }
                             }
                             dx += w;
@@ -233,6 +233,7 @@ export class BarcodeBase<T extends BarcodeBaseProps> extends Shape<T> {
             }
             rx += dx;
         }
+        canvas.fill();
     }
 
     protected renderHeightModulatedBarData(
@@ -258,7 +259,7 @@ export class BarcodeBase<T extends BarcodeBaseProps> extends Shape<T> {
                         {
                             const ss = vseg[Number.parseInt(c)];
                             for (const seg of ss) {
-                                canvas.fillRect(rx + dx, ry + seg.offset, w, seg.height);
+                                canvas.rect(rx + dx, ry + seg.offset, w, seg.height);
                             }
                         }
                         // FALL THRU
@@ -270,6 +271,7 @@ export class BarcodeBase<T extends BarcodeBaseProps> extends Shape<T> {
             }
             rx += dx;
         }
+        canvas.fill();
     }
 
     protected renderAdditional(canvas: SvgCanvas, tw: number, th: number, data: string, text: string) {
